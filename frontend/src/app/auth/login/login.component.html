@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="card">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label><input type="checkbox" [checked]="otpMode" (change)="toggleOtpMode($event)"> Login with OTP only</label>
+      </div>
+      <div class="form-group">
+        <label>Login via</label>
+        <div>
+          <label class="mr-3"><input type="radio" name="loginType" [checked]="loginType === 'email'" (change)="setLoginType('email')"> Email</label>
+          <label><input type="radio" name="loginType" [checked]="loginType === 'mobile'" (change)="setLoginType('mobile')"> Mobile No</label>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="loginType === 'email'">
+        <label for="email">Email</label>
+        <input type="email" [formControlName]="'email'" class="form-control" id="email" placeholder="Enter your email">
+        <div *ngIf="f['email']?.touched && f['email']?.invalid" class="error">
+          <ng-container *ngIf="f['email']?.errors">
+            <div *ngIf="f['email']?.errors?.['required']">Email is required</div>
+            <div *ngIf="f['email']?.errors?.['email']">Please enter a valid email address</div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="loginType === 'mobile'">
+        <label for="mobile">Mobile No</label>
+        <input type="text" [formControlName]="'mobile'" class="form-control" id="mobile" maxlength="10" placeholder="Enter your mobile number">
+        <div *ngIf="f['mobile']?.touched && f['mobile']?.invalid" class="error">
+          <div *ngIf="f['mobile']?.errors?.['required']">Mobile number is required</div>
+          <div *ngIf="f['mobile']?.errors?.['mobileInvalid']">Invalid mobile number</div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="!otpMode">
+        <label for="password">Password</label>
+        <input type="password" [formControlName]="'password'" class="form-control" id="password" autocomplete="current-password">
+        <div *ngIf="f['password']?.touched && f['password']?.invalid" class="error">
+          <div *ngIf="f['password']?.errors?.['required']">Password is required</div>
+          <div *ngIf="f['password']?.errors?.['minlength']">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="otpMode && otpSent">
+        <label for="otp">OTP</label>
+        <input type="text" [formControlName]="'otp'" class="form-control" id="otp" placeholder="Enter OTP">
+      </div>
+      <button *ngIf="!otpMode" type="submit" [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ loading ? 'Please wait...' : 'Login' }}
+      </button>
+      <button *ngIf="otpMode && !otpSent" type="button" class="btn btn-primary" (click)="loginWithOtp(loginType)" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ loading ? 'Please wait...' : 'Send OTP' }}
+      </button>
+      <button *ngIf="otpMode && otpSent" type="button" class="btn btn-success" (click)="verifyOtp()" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ loading ? 'Please wait...' : 'Verify OTP' }}
+      </button>
+    </form>
+
+    <div *ngIf="success" class="alert alert-success d-flex align-items-center" style="font-size:1.1rem;">
+      <span class="me-2" style="font-size:1.5rem;color:#198754;">&#10003;</span>
+      {{ success }}
+    </div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="text-center mt-3">
+      <a routerLink="/register">Don't have an account? Register</a>
+    </div>
+  </div>
+</div>

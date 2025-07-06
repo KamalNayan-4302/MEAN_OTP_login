@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Verify Your Email Address</h2>
+      <p *ngIf="showOtpForm">We've sent a 6-digit code to your email <strong>{{ email }}</strong></p>
+    </div>
+
+    <ng-container *ngIf="showOtpForm; else expiredBlock">
+      <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+        <div class="otp-input-container">
+          <label for="otp">Enter Verification Code</label>
+          <div class="otp-input-wrapper">
+            <input 
+              type="text" 
+              formControlName="otp" 
+              class="otp-input" 
+              id="otp" 
+              maxlength="6"
+              placeholder="000000"
+              [class.error]="otpError"
+            >
+            <div class="input-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+          </div>
+          <div *ngIf="otpError" class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ otpError }}
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="loading || !verifyForm.valid" class="verify-btn">
+          <span *ngIf="loading" class="spinner"></span>
+          <i *ngIf="!loading" class="fas fa-check-circle"></i>
+          {{ loading ? 'Verifying...' : 'Verify Code' }}
+        </button>
+      </form>
+
+      <div *ngIf="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        {{ successMessage }}
+      </div>
+      
+      <div *ngIf="error" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+
+      <div class="resend-section">
+        <p>Didn't receive the code?</p>
+        <button type="button" class="resend-btn" (click)="resendOTP()">
+          <i class="fas fa-redo"></i>
+          Resend Code
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #expiredBlock>
+      <div class="error-message" style="margin: 2em 0; text-align: center;">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+      <div style="text-align: center;">
+        <a routerLink="/register" class="btn btn-primary">Go to Registration</a>
+      </div>
+    </ng-template>
+  </div>
+</div>

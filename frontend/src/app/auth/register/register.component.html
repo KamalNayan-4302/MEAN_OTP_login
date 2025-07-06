@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="card">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [formControlName]="'name'" class="form-control" id="name" placeholder="Enter your full name">
+        <app-form-error [control]="f['name']"></app-form-error>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" [formControlName]="'email'" class="form-control" id="email" placeholder="Enter your email">
+        <app-form-error [control]="f['email']"></app-form-error>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile No</label>
+        <input type="text" [formControlName]="'mobile'" class="form-control" id="mobile" maxlength="10" placeholder="Enter your mobile number">
+        <div *ngIf="f['mobile']?.touched && f['mobile']?.invalid" class="error">
+          <div *ngIf="f['mobile']?.errors?.['required']">Mobile number is required</div>
+          <div *ngIf="f['mobile']?.errors?.['mobileInvalid']">Invalid mobile number</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" [formControlName]="'password'" class="form-control" id="password" autocomplete="new-password" placeholder="Enter your password">
+        <div *ngIf="f['password']?.touched && f['password']?.invalid" class="error">
+          <div *ngIf="f['password']?.errors?.['required']">Password is required</div>
+          <div *ngIf="f['password']?.errors?.['minlength']">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" [formControlName]="'confirmPassword'" class="form-control" id="confirmPassword" autocomplete="new-password" placeholder="Re-enter your password">
+        <div *ngIf="f['confirmPassword']?.touched && f['confirmPassword']?.invalid" class="error">
+          <div *ngIf="f['confirmPassword']?.errors?.['required']">Confirm password is required</div>
+          <div *ngIf="f['confirmPassword']?.errors?.['passwordMismatch']">Passwords do not match</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Profile Photo</label>
+        <input type="file" class="form-control" id="photo" accept="image/*" (change)="onFileChange($event)" placeholder="Upload your profile photo">
+        <app-form-error [control]="f['photo']"></app-form-error>
+      </div>
+
+      <button type="submit" [disabled]="loading" class="btn btn-primary">
+        {{ loading ? 'Please wait...' : 'Register' }}
+      </button>
+    </form>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </div>
+</div>

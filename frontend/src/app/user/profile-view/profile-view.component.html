@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 class="profile-title">Profile</h1>
+  <div class="alert alert-success d-flex align-items-center mt-4" style="font-size:1.1rem;">
+    <span class="me-2" style="font-size:1.5rem;">&#10003;</span>
+    <div>
+      <strong>Credentials Verified!</strong><br><span class="credentials-welcome">Welcome back! You’ve successfully logged in.</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="profile-header">
+      <img [src]="profile?.profilePhoto || 'assets/kamal.jpg'" 
+           alt="Profile Photo" 
+           class="profile-photo">
+      <h2>{{ profile?.name }}</h2>
+    </div>
+
+    <div class="profile-info">
+      <div class="info-item">
+        <span class="label">Email:</span>
+        <span class="value">{{ profile?.email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Mobile:</span>
+        <span class="value">{{ profile?.mobile }}</span>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+  <button class="btn btn-primary edit-btn" routerLink="/profile/edit">Edit Profile</button>
+  <button class="btn btn-primary logout-btn" (click)="logout()">Logout</button>
+</div>
+  </div>
+</div>

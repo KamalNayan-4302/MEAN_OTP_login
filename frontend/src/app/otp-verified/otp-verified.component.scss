@@ -1,0 +1,44 @@
+.otp-verified-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f5f7fa;
+}
+
+.otp-verified-card {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.09);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.otp-verified-actions {
+  margin-top: 1rem;
+}
+.otp-verified-actions .btn + .btn {
+  margin-left: 20px;
+}
+
+
+.profile-photo-navbar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.profile-photo-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 1rem auto 0 auto;
+  display: block;
+  border: 2px solid #28a745;
+  box-shadow: 0 2px 12px rgba(40,167,69,0.15);
+}

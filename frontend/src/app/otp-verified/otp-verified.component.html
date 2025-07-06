@@ -1,0 +1,15 @@
+<div class="otp-verified-container">
+  <div class="otp-verified-card">
+
+    <h2>Credentials Verified!</h2>
+    <p class="mb-2">Your credentials has been successfully verified. You are now logged in.</p>
+
+    <div *ngIf="error" class="alert alert-danger" role="alert" style="margin-bottom: 1rem;">
+      <i class="fas fa-exclamation-circle"></i> {{ error }}
+    </div>
+    <div class="otp-verified-actions">
+      <button (click)="logout()" class="btn btn-primary text-decoration-none">Log Out</button>
+      <button (click)="goToProfile()" class="btn btn-primary text-decoration-none">Go to Profile</button>
+    </div>
+  </div>
+</div>

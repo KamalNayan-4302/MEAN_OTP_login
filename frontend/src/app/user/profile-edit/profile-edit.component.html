@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card">
+    <h2>Edit Profile</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control" id="name">
+        <div *ngIf="editForm.get('name')?.touched && editForm.get('name')?.invalid" class="error">
+          <div *ngIf="editForm.get('name')?.errors?.['required']">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" class="form-control" id="email">
+        <div *ngIf="editForm.get('email')?.touched && editForm.get('email')?.invalid" class="error">
+          <div *ngIf="editForm.get('email')?.errors?.['required']">Email is required</div>
+          <div *ngIf="editForm.get('email')?.errors?.['email']">Please enter a valid email</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="photo">Profile Photo</label>
+        <input type="file" class="form-control" id="photo" accept="image/*" (change)="onFileChange($event)">
+      </div>
+      <button type="submit" [disabled]="loading" class="btn btn-primary">
+        {{ loading ? 'Please wait...' : 'Save Changes' }}
+      </button>
+    </form>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </div>
+</div>

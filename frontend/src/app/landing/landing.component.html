@@ -1,0 +1,18 @@
+<div class="landing-container">
+  <div class="landing-card mb-5">
+    <h1 class="landing-title pb-2">OTP Authenticator App</h1>
+    <p class="mb-4">Secure your account with OTP authentication.</p>
+    <ng-container *ngIf="!authService.isLoggedIn(); else loggedInBlock">
+      <div class="landing-actions mb-2">
+        <button class="btn btn-primary" (click)="goToLogin()">Login</button>
+        <button class="btn btn-primary" (click)="goToSignup()">Signup</button>
+      </div>
+    </ng-container>
+    <ng-template #loggedInBlock>
+      <div class="d-flex flex-column align-items-center">
+        <img [src]="authService.userProfilePhoto || 'assets/default-avatar.png'" alt="Profile" class="profile-photo-landing mb-3">
+        <div class="alert alert-success w-100 text-center">Successfully logged in!</div>
+      </div>
+    </ng-template>
+  </div>
+</div>
